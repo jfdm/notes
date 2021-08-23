@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Executing Programs Operationally &#8212; Notes on Programming Language Theory</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bi-Directional Typing" href="bi-directional.html" />
+    <link rel="prev" title="Coding Break 1" href="coding-break-one.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Notes on Programming Language Theory</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Notes on Programming Language Theory
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="syntax.html">
+   Syntax
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="types.html">
+   Types &amp; Type-Checking
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="coding-break-one.html">
+   Coding Break 1
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Executing Programs Operationally
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bi-directional.html">
+   Bi-Directional Typing
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/semantics.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jfdm/notes/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jfdm/notes//issues/new?title=Issue%20on%20page%20%2Fsemantics.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#big-step">
+   Big Step
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#small-step">
+   Small Step
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="executing-programs-operationally">
+<h1>Executing Programs Operationally<a class="headerlink" href="#executing-programs-operationally" title="Permalink to this headline">¶</a></h1>
+<p>Operational semantics describe how we evaluate our programs.
+This describes how we can <em>reduce</em>/evaluate our language expressions and statements to a single value.
+There are generally two common styles of operational semantics: Big-Step, and Small-Step.
+There are more formal names given but we generally refer to the styles using these names.</p>
+<p>So alongside our type-system will be a series of reduction rules that describe how terms can be reduced to a <em>value</em>.</p>
+<ul class="simple">
+<li><p><strong>Values</strong> are a subset of terms we consider to be irreducible.</p></li>
+</ul>
+<p>We describe these reductions either in small-steps or big-steps.</p>
+<ul class="simple">
+<li><p><strong>Small Step</strong> For each term we describe how we reduce each sub-term (or term as a whole) to get towards a value.</p></li>
+<li><p><strong>Big Step</strong> For each term we describe how we get down to the value directly.</p></li>
+</ul>
+<p>For this section we will consider our exemplar, extended with conditional expressions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>t : TYPE ::= BOOL | NAT
+n : NAT  ::= 0,1,2,...    | (add e e)
+b : BOOL ::= True | False | (and e e)
+e : t    ::= x | n | b
+           | let x be e in e
+           | if e then e else e
+</pre></div>
+</div>
+<p>For this language our values will be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>n ::= 0,1,2...
+b ::= True | False
+v ::= n | b
+</pre></div>
+</div>
+<div class="section" id="big-step">
+<h2>Big Step<a class="headerlink" href="#big-step" title="Permalink to this headline">¶</a></h2>
+<p>Big-Step semantics are concerned with what the final result is; we can skip description of intermediate computations.
+We denote the transition using a fat down arrow, but for ASCII we use a fat right arrow.
+Here are the Big-Step semantics for our language.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ] ====== [ Bool ]
+n =&gt; n         b =&gt; b
+
+a =&gt; a&#39;                       a =&gt; a&#39;
+b =&gt; b&#39;                       b =&gt; b&#39;
+==================== [ Add ]  ===================== [ And ]
+(add a b) =&gt; a&#39; + b&#39;          (and a b) =&gt; a&#39; /\ b&#39;
+
+c =&gt; True                      c =&gt; False
+t =&gt; t&#39;                        f =&gt; f&#39;
+================== [ If-True ] ================== [ If-False ]
+if c then t else f             if c then t else f
+=&gt;                             =&gt;
+t&#39;                             f&#39;
+
+e =&gt; e&#39;
+sub e&#39; for x in b =&gt; b&#39;
+======================= [ Let ]
+let x be e in b
+=&gt;
+b&#39;
+</pre></div>
+</div>
+<p>Here we use <em>real</em> operations to show how an expression is reduced using <em>real</em> operations.
+The rules for <code class="docutils literal notranslate"><span class="pre">IF-True</span></code> and <code class="docutils literal notranslate"><span class="pre">IF-False</span></code> describe the branching that occurs with use of conditional statements.</p>
+</div>
+<div class="section" id="small-step">
+<h2>Small Step<a class="headerlink" href="#small-step" title="Permalink to this headline">¶</a></h2>
+<p>Small-Step semantics are concerned with how we get to the final result; we cannot skip intermediate computations.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ] ====== [ Bool ]
+n ~&gt; n         b ~&gt; b
+
+a ~&gt; n                            b ~&gt; n&#39;
+====================== [ Add-E ]  ===================== [ Add-B ]
+(add a b) ~&gt; (add n b)            (add n b) =&gt; n + n&#39;
+
+a ~&gt; n                            b ~&gt; n&#39;
+====================== [ And-E ]  ===================== [ And-B ]
+(and a b) ~&gt; (and n b)            (and n b) =&gt; n /\ n&#39;
+
+
+c ~&gt; b
+================== [ If-E ]
+if c then t else f
+~&gt;
+if b then r else f
+
+c ~&gt; True                        c ~&gt; False
+================== [ If-True-B ] ================== [ If-False-B ]
+if c then t else f               if c then t else f
+~&gt;                               =&gt;
+t                                f
+
+
+e ~&gt; e&#39;                  sub v for x in b ~&gt; b&#39;
+=============== [ Let-E] ======================= [ Let-B ]
+let x be e in b          let x be v in b
+~&gt;                       ~&gt;
+let x be e&#39; in b         b&#39;
+</pre></div>
+</div>
+<p>Again we use <em>real</em> operations to show how an expression is reduced using <em>real</em> operations.
+We denote the transition using a right squiggly arrow, and multiple reductions with <code class="docutils literal notranslate"><span class="pre">~&gt;*</span></code>.
+With these semantics, however, we must describe how we reduce each sub-term in the language.
+Rules that reduce <em>just</em> a sub-term are called eta-reductions (rules named x-E), and rules that collapse a term beta-reductions (rules named x-B).
+Notice that for each beta-rule to be applied we must have already moved from left-to-right across the term.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="coding-break-one.html" title="previous page">Coding Break 1</a>
+    <a class='right-next' id="next-link" href="bi-directional.html" title="next page">Bi-Directional Typing</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jan de Muijnck-Hughes<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
