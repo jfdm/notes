@@ -1,0 +1,10 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+
+- file: intro
+- file: syntax
+- file: types
+- file: coding-break-one
+- file: semantics
+- file: bi-directional
