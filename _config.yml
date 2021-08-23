@@ -4,6 +4,8 @@
 title: Notes on Programming Language Theory
 author: Jan de Muijnck-Hughes
 
+copyright: "2021"
+
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
