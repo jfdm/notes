@@ -53,8 +53,8 @@ Here are the Big-Step semantics for our language.
     t'                             f'
 
     e => e'
-    sub e' for x in b => b'
-    ======================= [ Let ]
+    replace x with e' in b => b'
+    ============================ [ Let ]
     let x be e in b
     =>
     b'
@@ -87,12 +87,12 @@ Small-Step semantics are concerned with how we get to the final result; we canno
     c ~> True                        c ~> False
     ================== [ If-True-B ] ================== [ If-False-B ]
     if c then t else f               if c then t else f
-    ~>                               =>
+    ~>                               ~>
     t                                f
 
 
-    e ~> e'                  sub v for x in b ~> b'
-    =============== [ Let-E] ======================= [ Let-B ]
+    e ~> e'                  replace x with v in b ~> b'
+    =============== [ Let-E] =========================== [ Let-B ]
     let x be e in b          let x be v in b
     ~>                       ~>
     let x be e' in b         b'

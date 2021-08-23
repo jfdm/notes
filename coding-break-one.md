@@ -1,4 +1,4 @@
-# Coding Break 1
+# Coding Break One
 
 We can realise our terms and types as algebraic data-types.
 Taking our Razor with Boolean conjunction, Natural number addition and let-bindings, we can represent it as:

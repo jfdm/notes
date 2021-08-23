@@ -6,5 +6,8 @@
 - file: syntax
 - file: types
 - file: coding-break-one
+- file: naming
+- file: coding-break-two
+- file: renaming
 - file: semantics
 - file: bi-directional
