@@ -9,7 +9,7 @@ When we check a program can differ:
   You will have seen static typing if you have programmed in Java, Scala, C, C++, Swift, OCaml, or Haskell.
 
 + **dynamic types**
-  type check programs at runtime, duck typing (a la python) is a for of dynamic typing.
+  type check programs at runtime, duck typing (a la python) is a form of dynamic typing.
   You will have seen dynamic typing if you have programmed in Python, JavaScript, and PHP.
 
 + **gradual typing** allows you to do both
@@ -30,11 +30,13 @@ Without types one can construct ill-typed terms, terms that do not make sense:
     (and 0 True)
     (add True 0)
 
-We can use our abstract syntax as a concise notation to describe which types belong to which terms, and use typing rules to describe how the types are related to each other.
-Ensuring that expressions are well formed.
-For instance, in our exemplar grouping the boolean terms and numerical terms together.
+We can use our abstract syntax as a concise notation to describe which types belong to which terms, and use typing rules to describe how the types and terms are related to each other.
+Thus, ensuring that terms are well formed.
 
-For example, we can define some types for our exemplar and type them as:
+We often use the syntax `e : t` as an ascription to associate a type with a term.
+We use this ascription in our schematic and syntactical notation.
+
+For example, in our exemplar we can use types to group the boolean terms and numerical terms together as follows:
 
     t : TYPE ::= BOOL | NAT
     n : NAT  ::= 0,1,2,...    | (add e e)
@@ -45,16 +47,23 @@ Here `TYPE` represents the type-of-types.
 We have in-lined the typing rules for brevity, but our definition now describes well-typed terms.
 These rules dictate what it means for an expression/statement to be well-formed.
 
+Expanded the typing rules look like:
 
-Verbose definitions follow.
+    ======= [ Nat ]
+    n : NAT
 
-    ======= [ Nat ]  ======== [ BOOL ]
-    n : NAT          b : BOOL
+    ======== [ BOOL ]
+    b : BOOL
 
-    a : BOOL           a : Nat
-    b : BOOL           b : Nat
-    ========= [ And ]  ========= [ Add ]
-    (and a b)          (add a b)
+    a : BOOL
+    b : BOOL
+    ================ [ And ]
+    (and a b) : BOOL
+
+    a : NAT
+    b : NAT
+    ============== [ Add ]
+    (adda b) : NAT
 
 We read typing rules as follows:
 
@@ -72,7 +81,7 @@ Expanding our example further, we can include let-bound variables:
     t : TYPE ::= BOOL | NAT
     n : NAT  ::= 0,1,2,...    | (add e e)
     b : BOOL ::= True | False | (and e e)
-    e : t    ::= v | let v be e in e | n | b
+    e : t    ::= x | let x be e in e | n | b
 
 But how do we type our let-expressions?
 
@@ -81,7 +90,7 @@ We first define a context `g` as:
 
     g : G ::= Empty | (Extend g (v:t))
 
-Contexts are either empty of van be extended to include a name-type pair.
+Contexts are either empty or they are extended to include a name-type pair.
 With these constructs we can describe type-checking more precisely as:
 
     g |- e : t
@@ -109,8 +118,8 @@ Using let we name `e` as `v` in the body `b` ensuring that the context is extend
 
 ## Properties
 
-Our typing-system, (the types, syntax, and judgements) is type-safe iff types are preserved during reduction, and that a term will reduce, eventually to a value (a irreducible term).
-
+Our typing-system, (the types, syntax, and judgements) is type-safe iff types are preserved during reduction, and that a term will reduce, eventually, to a value (an irreducible term).
+There are two important properties of type-systems that we must consider:
 
 + **Preservation**
   The property that types are preserved during reduction.

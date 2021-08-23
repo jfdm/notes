@@ -34,7 +34,7 @@ check _ (N _) = Just NAT
 check _ (B _) = Just BOOL
 ```
 
-Here we can tell from the term itself what it's type will be.
+Here we can tell from the term itself what its type will be.
 For the remaining terms we will have to ask (using an application of `check`) what a term's type will be.
 Take `And` and `Add`, for each operand we ask what its type is and then check to see if it is the expected type.
 Checking fails otherwise.

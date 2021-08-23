@@ -20,7 +20,7 @@ What is the order of execution of these expressions?
 ## Abstract Syntax
 
 When reasoning about programs we want our syntax to be unambiguous.
-Abstract syntax, which is often seen as **the** Abstract Syntax Tree, is the unambiguous form of the language.
+Abstract syntax, which is often seen as *the* Abstract Syntax Tree, is the unambiguous form of the language.
 For example:
 
     (add 1 (multiply 2 (add 3 3)))
@@ -29,7 +29,7 @@ What is the order of execution of these expressions?
 
 ## Describing
 
-We can describe our syntax, concrete \& abstract using eBNF like grammars.
+We can describe our syntax, concrete & abstract using eBNF like grammars.
 While concrete syntax *is* described using eBNF, abstract syntax takes a different form.
 
 Compare:
