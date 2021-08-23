@@ -255,7 +255,7 @@ When we check a program can differ:</p>
 type check programs at compile time.
 You will have seen static typing if you have programmed in Java, Scala, C, C++, Swift, OCaml, or Haskell.</p></li>
 <li><p><strong>dynamic types</strong>
-type check programs at runtime, duck typing (a la python) is a for of dynamic typing.
+type check programs at runtime, duck typing (a la python) is a form of dynamic typing.
 You will have seen dynamic typing if you have programmed in Python, JavaScript, and PHP.</p></li>
 <li><p><strong>gradual typing</strong> allows you to do both
 You will have seen gradual typing if you have programmed in TypeScript, Python 3, and Hack.</p></li>
@@ -275,10 +275,11 @@ Without types one can construct ill-typed terms, terms that do not make sense:</
 (add True 0)
 </pre></div>
 </div>
-<p>We can use our abstract syntax as a concise notation to describe which types belong to which terms, and use typing rules to describe how the types are related to each other.
-Ensuring that expressions are well formed.
-For instance, in our exemplar grouping the boolean terms and numerical terms together.</p>
-<p>For example, we can define some types for our exemplar and type them as:</p>
+<p>We can use our abstract syntax as a concise notation to describe which types belong to which terms, and use typing rules to describe how the types and terms are related to each other.
+Thus, ensuring that terms are well formed.</p>
+<p>We often use the syntax <code class="docutils literal notranslate"><span class="pre">e</span> <span class="pre">:</span> <span class="pre">t</span></code> as an ascription to associate a type with a term.
+We use this ascription in our schematic and syntactical notation.</p>
+<p>For example, in our exemplar we can use types to group the boolean terms and numerical terms together as follows:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>t : TYPE ::= BOOL | NAT
 n : NAT  ::= 0,1,2,...    | (add e e)
 b : BOOL ::= True | False | (and e e)
@@ -288,14 +289,22 @@ e : t    ::= n | b
 <p>Here <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> represents the type-of-types.
 We have in-lined the typing rules for brevity, but our definition now describes well-typed terms.
 These rules dictate what it means for an expression/statement to be well-formed.</p>
-<p>Verbose definitions follow.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>======= [ Nat ]  ======== [ BOOL ]
-n : NAT          b : BOOL
+<p>Expanded the typing rules look like:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>======= [ Nat ]
+n : NAT
 
-a : BOOL           a : Nat
-b : BOOL           b : Nat
-========= [ And ]  ========= [ Add ]
-(and a b)          (add a b)
+======== [ BOOL ]
+b : BOOL
+
+a : BOOL
+b : BOOL
+================ [ And ]
+(and a b) : BOOL
+
+a : NAT
+b : NAT
+============== [ Add ]
+(adda b) : NAT
 </pre></div>
 </div>
 <p>We read typing rules as follows:</p>
@@ -313,7 +322,7 @@ We can only proceed to computation/evaluation of our language iff it is well-typ
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>t : TYPE ::= BOOL | NAT
 n : NAT  ::= 0,1,2,...    | (add e e)
 b : BOOL ::= True | False | (and e e)
-e : t    ::= v | let v be e in e | n | b
+e : t    ::= x | let x be e in e | n | b
 </pre></div>
 </div>
 <p>But how do we type our let-expressions?</p>
@@ -322,7 +331,7 @@ We first define a context <code class="docutils literal notranslate"><span class
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>g : G ::= Empty | (Extend g (v:t))
 </pre></div>
 </div>
-<p>Contexts are either empty of van be extended to include a name-type pair.
+<p>Contexts are either empty or they are extended to include a name-type pair.
 With these constructs we can describe type-checking more precisely as:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>g |- e : t
 </pre></div>
@@ -350,7 +359,8 @@ Using let we name <code class="docutils literal notranslate"><span class="pre">e
 </div>
 <div class="section" id="properties">
 <h2>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
-<p>Our typing-system, (the types, syntax, and judgements) is type-safe iff types are preserved during reduction, and that a term will reduce, eventually to a value (a irreducible term).</p>
+<p>Our typing-system, (the types, syntax, and judgements) is type-safe iff types are preserved during reduction, and that a term will reduce, eventually, to a value (an irreducible term).
+There are two important properties of type-systems that we must consider:</p>
 <ul class="simple">
 <li><p><strong>Preservation</strong>
 The property that types are preserved during reduction.</p></li>

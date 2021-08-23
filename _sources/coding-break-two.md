@@ -1,7 +1,6 @@
 # Coding Break Two
 
-We can realise our terms and types as algebraic data-types.
-Taking our Razor with Boolean conjunction, Natural number addition and let-bindings, we can represent it as:
+Recall our running example as coded in Idris:
 
 ```idris
 
@@ -15,7 +14,7 @@ data Term = N Nat
           | Let String Term Term
 ```
 
-This requires an extrinsic type-checker, and is stringly named.
+This representation requires an extrinsic type-checker, and is stringly named.
 
 ## Make it Nameless...
 
@@ -48,7 +47,7 @@ Variables now refer to where in the naming context they where defined:
 ```
 
 This will be the most recently defined binding for that name!
-Thus locally named bindings over shadow their global counterparts.
+Thus locally named bindings shadow their global counterparts but we can still refer to each based on their binding position.
 How cool is that!
 
 Finally, Let bindings introduce names to the naming environment.
@@ -60,7 +59,7 @@ Finally, Let bindings introduce names to the naming environment.
              -> Term          ctxt
 ```
 
-Here we name made the name introduction explicit.
+Here we made the name introduction explicit.
 We can remove this, if we are generating instances of Term from external sources.
 
 We can then write examples as:
@@ -104,7 +103,6 @@ and so do their operations:
 
 We could even make the definition of `And` and `Add` polymorphic, but that may cause issues later on when working with these terms.
 
-
 Variables now refer to where in the naming context they where defined:
 
 ```idris
@@ -127,7 +125,7 @@ Finally, Let bindings introduce names to the naming environment.
 
 ## Common
 
-Our latest definition is a good one, but when you are not reading in source names or providing better error messages we can remove the names from the definition:
+Our latest definition is a good one, but when you do not need to provide better error messages we can remove the names from the definition:
 
 ```idris
 data Term : List Ty -> Ty -> Type where

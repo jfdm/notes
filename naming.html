@@ -245,7 +245,7 @@ example <span class="ow">=</span>  <span class="kt">Let</span> <span class="s">&
                    <span class="ow">(</span><span class="kt">Var</span> <span class="s">&quot;x&quot;</span><span class="ow">))</span>
 </pre></div>
 </div>
-<p>What is the value of <code class="docutils literal notranslate"><span class="pre">x</span></code>?</p>
+<p>What is the value of the variable <code class="docutils literal notranslate"><span class="pre">x</span></code>?</p>
 <p>This question is important to know when understanding how to execute programs.
 We need to be able to <em>substitute</em> bound variables with their values.
 Technically, <code class="docutils literal notranslate"><span class="pre">example</span></code> is well-typed <strong>and</strong> well-scoped:</p>
@@ -255,8 +255,8 @@ Technically, <code class="docutils literal notranslate"><span class="pre">exampl
 </ol>
 <p>Here the second declaration of <code class="docutils literal notranslate"><span class="pre">x</span></code> shadows the first one.
 When executing programs, however, we need to distinguish between shadowed variables.</p>
-<p>One way to do this is through: alpha-renaming or alpha conversion in which we must rename all variables so that they are unique.</p>
-<p>Another way to do this is to use a nameless approach that ‘names’ variables based on their binding position.</p>
+<p>One way to do this is through: alpha-renaming (aka alpha conversion) in which we must rename all variables so that they are unique.
+Another way to do this, however, is to use a nameless approach that ‘names’ variables based on their binding position: De Bruijn indexing.</p>
 <p>For example our language now becomes:</p>
 <div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">data</span> <span class="kt">Term</span> <span class="ow">=</span> <span class="kt">N</span> <span class="kt">Nat</span>
           <span class="ow">|</span> <span class="kt">B</span> <span class="kt">Bool</span>

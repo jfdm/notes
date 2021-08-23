@@ -275,27 +275,36 @@ v ::= n | b
 <p>Big-Step semantics are concerned with what the final result is; we can skip description of intermediate computations.
 We denote the transition using a fat down arrow, but for ASCII we use a fat right arrow.
 Here are the Big-Step semantics for our language.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ] ====== [ Bool ]
-n =&gt; n         b =&gt; b
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ]
+n =&gt; n
 
-a =&gt; a&#39;                       a =&gt; a&#39;
-b =&gt; b&#39;                       b =&gt; b&#39;
-==================== [ Add ]  ===================== [ And ]
-(add a b) =&gt; a&#39; + b&#39;          (and a b) =&gt; a&#39; /\ b&#39;
+====== [ Bool ]
+b =&gt; b
 
-c =&gt; True                      c =&gt; False
-t =&gt; t&#39;                        f =&gt; f&#39;
-================== [ If-True ] ================== [ If-False ]
-if c then t else f             if c then t else f
-=&gt;                             =&gt;
-t&#39;                             f&#39;
+a =&gt; a&#39;
+b =&gt; b&#39;
+==================== [ Add ]
+(add a b) =&gt; a&#39; + b&#39;
+
+a =&gt; a&#39;
+b =&gt; b&#39;
+===================== [ And ]
+(and a b) =&gt; a&#39; /\ b&#39;
+
+c =&gt; True
+t =&gt; t&#39;
+======================== [ If-True ]
+if c then t else f =&gt; t&#39;
+
+c =&gt; False
+f =&gt; f&#39;
+======================== [ If-False ]
+if c then t else f =&gt; f&#39;
 
 e =&gt; e&#39;
 replace x with e&#39; in b =&gt; b&#39;
 ============================ [ Let ]
-let x be e in b
-=&gt;
-b&#39;
+let x be e in b =&gt; b&#39;
 </pre></div>
 </div>
 <p>Here we use <em>real</em> operations to show how an expression is reduced using <em>real</em> operations.
@@ -304,36 +313,47 @@ The rules for <code class="docutils literal notranslate"><span class="pre">IF-Tr
 <div class="section" id="small-step">
 <h2>Small Step<a class="headerlink" href="#small-step" title="Permalink to this headline">¶</a></h2>
 <p>Small-Step semantics are concerned with how we get to the final result; we cannot skip intermediate computations.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ] ====== [ Bool ]
-n ~&gt; n         b ~&gt; b
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>====== [ Nat ]
+n ~&gt; n
 
-a ~&gt; n                            b ~&gt; n&#39;
-====================== [ Add-E ]  ===================== [ Add-B ]
-(add a b) ~&gt; (add n b)            (add n b) =&gt; n + n&#39;
+====== [ Bool ]
+b ~&gt; b
 
-a ~&gt; n                            b ~&gt; n&#39;
-====================== [ And-E ]  ===================== [ And-B ]
-(and a b) ~&gt; (and n b)            (and n b) =&gt; n /\ n&#39;
+a ~&gt; n
+====================== [ Add-E ]
+(add a b) ~&gt; (add n b)
 
+b ~&gt; n&#39;
+=================== [ Add-B ]
+(add n b) =&gt; n + n&#39;
+
+a ~&gt; n
+====================== [ And-E ]
+(and a b) ~&gt; (and n b)
+
+b ~&gt; n&#39;
+==================== [ And-B ]
+(and n b) =&gt; n /\ n&#39;
 
 c ~&gt; b
-================== [ If-E ]
-if c then t else f
-~&gt;
-if b then r else f
+======================================== [ If-E ]
+if c then t else f ~&gt; if b then r else f
 
-c ~&gt; True                        c ~&gt; False
-================== [ If-True-B ] ================== [ If-False-B ]
-if c then t else f               if c then t else f
-~&gt;                               ~&gt;
-t                                f
+c ~&gt; True
+======================== [ If-True-B ]
+if c then t else f ~&gt; t
 
+c ~&gt; False
+================== [ If-False-B ]
+if c then t else f ~&gt; f
 
-e ~&gt; e&#39;                  replace x with v in b ~&gt; b&#39;
-=============== [ Let-E] =========================== [ Let-B ]
-let x be e in b          let x be v in b
-~&gt;                       ~&gt;
-let x be e&#39; in b         b&#39;
+e ~&gt; e&#39;
+=================================== [ Let-E]
+let x be e in b ~&gt; let x be e&#39; in b
+
+replace x with v in b ~&gt; b&#39;
+=========================== [ Let-B ]
+let x be v in b ~&gt; b&#39;
 </pre></div>
 </div>
 <p>Again we use <em>real</em> operations to show how an expression is reduced using <em>real</em> operations.

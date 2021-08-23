@@ -247,8 +247,7 @@
                 
   <div class="section" id="coding-break-two">
 <h1>Coding Break Two<a class="headerlink" href="#coding-break-two" title="Permalink to this headline">¶</a></h1>
-<p>We can realise our terms and types as algebraic data-types.
-Taking our Razor with Boolean conjunction, Natural number addition and let-bindings, we can represent it as:</p>
+<p>Recall our running example as coded in Idris:</p>
 <div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">data</span> <span class="kt">Ty</span> <span class="ow">=</span> <span class="kt">NAT</span> <span class="ow">|</span> <span class="kt">BOOL</span>
 
 <span class="kr">data</span> <span class="kt">Term</span> <span class="ow">=</span> <span class="kt">N</span> <span class="kt">Nat</span>
@@ -259,7 +258,7 @@ Taking our Razor with Boolean conjunction, Natural number addition and let-bindi
           <span class="ow">|</span> <span class="kt">Let</span> <span class="kt">String</span> <span class="kt">Term</span> <span class="kt">Term</span>
 </pre></div>
 </div>
-<p>This requires an extrinsic type-checker, and is stringly named.</p>
+<p>This representation requires an extrinsic type-checker, and is stringly named.</p>
 <div class="section" id="make-it-nameless">
 <h2>Make it Nameless…<a class="headerlink" href="#make-it-nameless" title="Permalink to this headline">¶</a></h2>
 <p>First we look at making the representation ‘nameless’.
@@ -282,7 +281,7 @@ To do so we index the type of <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 <p>This will be the most recently defined binding for that name!
-Thus locally named bindings over shadow their global counterparts.
+Thus locally named bindings shadow their global counterparts but we can still refer to each based on their binding position.
 How cool is that!</p>
 <p>Finally, Let bindings introduce names to the naming environment.</p>
 <div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="nf">Let</span> <span class="ow">:</span> <span class="ow">(</span>name <span class="ow">:</span> <span class="kt">String</span><span class="ow">)</span>
@@ -291,7 +290,7 @@ How cool is that!</p>
              <span class="ow">-&gt;</span> <span class="kt">Term</span>          ctxt
 </pre></div>
 </div>
-<p>Here we name made the name introduction explicit.
+<p>Here we made the name introduction explicit.
 We can remove this, if we are generating instances of Term from external sources.</p>
 <p>We can then write examples as:</p>
 <div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="nf">example</span> <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span>
@@ -340,7 +339,7 @@ How cool is that!</p>
 </div>
 <div class="section" id="common">
 <h2>Common<a class="headerlink" href="#common" title="Permalink to this headline">¶</a></h2>
-<p>Our latest definition is a good one, but when you are not reading in source names or providing better error messages we can remove the names from the definition:</p>
+<p>Our latest definition is a good one, but when you do not need to provide better error messages we can remove the names from the definition:</p>
 <div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">data</span> <span class="kt">Term</span> <span class="ow">:</span> <span class="kt">List</span> <span class="kt">Ty</span> <span class="ow">-&gt;</span> <span class="kt">Ty</span> <span class="ow">-&gt;</span> <span class="kt">Type</span> <span class="kr">where</span>
 
   <span class="nf">N</span> <span class="ow">:</span> <span class="kt">Nat</span>  <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt <span class="kt">NAT</span>

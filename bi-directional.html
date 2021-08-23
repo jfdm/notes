@@ -245,9 +245,9 @@ It has the signature:</p>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">Error</span></code> is a data-type to capture errors such as type-mismatch and variable not found.</p>
 <p>The problem is that the function <code class="docutils literal notranslate"><span class="pre">check</span></code> does not look and feel like what a type-checker should do!
-It doesn’t check if <code class="docutils literal notranslate"><span class="pre">term</span></code> has a type, rather it constructs the type for <code class="docutils literal notranslate"><span class="pre">term</span></code>, if it can do so.</p>
+It doesn’t check if <code class="docutils literal notranslate"><span class="pre">term</span></code> has a particular type, rather it constructs the type for <code class="docutils literal notranslate"><span class="pre">term</span></code>, if it can do so.</p>
 <p>Here <code class="docutils literal notranslate"><span class="pre">check</span></code> is not a <em>checking</em> function it’s a type forming one!</p>
-<p>If we look at how types flow in our implementation of <code class="docutils literal notranslate"><span class="pre">check</span></code> from Coding Break 1: you will notice to types of flows:</p>
+<p>If we look at how types flow in our implementation of <code class="docutils literal notranslate"><span class="pre">check</span></code> from Coding Break 1: you will notice two types of flows:</p>
 <ol class="simple">
 <li><p>atomic terms present their types when asked; and</p></li>
 <li><p>other terms will do a mixture of:</p></li>
@@ -266,15 +266,23 @@ In fact the idea of asking and asserting types from terms has been formalised wo
 <p>Below we give the bi-directional typing rules for our language.
 We differ from standard notation and use <code class="docutils literal notranslate"><span class="pre">checks</span></code> and <code class="docutils literal notranslate"><span class="pre">synths</span></code> to denote what happens.</p>
 <p>First, primitive values:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>================= [ Nat ]  ================== [ Bool ]
-g |- n checks NAT          g |- b checks BOOL
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>================= [ Nat ]
+g |- n checks NAT
+
+================== [ Bool ]
+g |- b checks BOOL
 </pre></div>
 </div>
 <p>then <code class="docutils literal notranslate"><span class="pre">And</span></code> and <code class="docutils literal notranslate"><span class="pre">Add</span></code>:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>g |- x checks BOOL                  g |- x checks NAT
-g |- y checks BOOL                  g |- y checks NAT
-========================== [ And ]  ========================== [ Add ]
-g |- (And x y) checks BOOL          g |- (Add x y) checks BOOL
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>g |- x checks BOOL
+g |- y checks BOOL
+========================== [ And ]
+g |- (And x y) checks BOOL
+
+g |- x checks NAT
+g |- y checks NAT
+========================== [ Add ]
+g |- (Add x y) checks BOOL
 </pre></div>
 </div>
 <p>then Variables:</p>

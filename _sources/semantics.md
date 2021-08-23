@@ -37,27 +37,36 @@ Big-Step semantics are concerned with what the final result is; we can skip desc
 We denote the transition using a fat down arrow, but for ASCII we use a fat right arrow.
 Here are the Big-Step semantics for our language.
 
-    ====== [ Nat ] ====== [ Bool ]
-    n => n         b => b
+    ====== [ Nat ]
+    n => n
 
-    a => a'                       a => a'
-    b => b'                       b => b'
-    ==================== [ Add ]  ===================== [ And ]
-    (add a b) => a' + b'          (and a b) => a' /\ b'
+    ====== [ Bool ]
+    b => b
 
-    c => True                      c => False
-    t => t'                        f => f'
-    ================== [ If-True ] ================== [ If-False ]
-    if c then t else f             if c then t else f
-    =>                             =>
-    t'                             f'
+    a => a'
+    b => b'
+    ==================== [ Add ]
+    (add a b) => a' + b'
+
+    a => a'
+    b => b'
+    ===================== [ And ]
+    (and a b) => a' /\ b'
+
+    c => True
+    t => t'
+    ======================== [ If-True ]
+    if c then t else f => t'
+
+    c => False
+    f => f'
+    ======================== [ If-False ]
+    if c then t else f => f'
 
     e => e'
     replace x with e' in b => b'
     ============================ [ Let ]
-    let x be e in b
-    =>
-    b'
+    let x be e in b => b'
 
 Here we use *real* operations to show how an expression is reduced using *real* operations.
 The rules for `IF-True` and `IF-False` describe the branching that occurs with use of conditional statements.
@@ -66,36 +75,47 @@ The rules for `IF-True` and `IF-False` describe the branching that occurs with u
 
 Small-Step semantics are concerned with how we get to the final result; we cannot skip intermediate computations.
 
-    ====== [ Nat ] ====== [ Bool ]
-    n ~> n         b ~> b
+    ====== [ Nat ]
+    n ~> n
 
-    a ~> n                            b ~> n'
-    ====================== [ Add-E ]  ===================== [ Add-B ]
-    (add a b) ~> (add n b)            (add n b) => n + n'
+    ====== [ Bool ]
+    b ~> b
 
-    a ~> n                            b ~> n'
-    ====================== [ And-E ]  ===================== [ And-B ]
-    (and a b) ~> (and n b)            (and n b) => n /\ n'
+    a ~> n
+    ====================== [ Add-E ]
+    (add a b) ~> (add n b)
 
+    b ~> n'
+    =================== [ Add-B ]
+    (add n b) => n + n'
+
+    a ~> n
+    ====================== [ And-E ]
+    (and a b) ~> (and n b)
+
+    b ~> n'
+    ==================== [ And-B ]
+    (and n b) => n /\ n'
 
     c ~> b
-    ================== [ If-E ]
-    if c then t else f
-    ~>
-    if b then r else f
+    ======================================== [ If-E ]
+    if c then t else f ~> if b then r else f
 
-    c ~> True                        c ~> False
-    ================== [ If-True-B ] ================== [ If-False-B ]
-    if c then t else f               if c then t else f
-    ~>                               ~>
-    t                                f
+    c ~> True
+    ======================== [ If-True-B ]
+    if c then t else f ~> t
 
+    c ~> False
+    ================== [ If-False-B ]
+    if c then t else f ~> f
 
-    e ~> e'                  replace x with v in b ~> b'
-    =============== [ Let-E] =========================== [ Let-B ]
-    let x be e in b          let x be v in b
-    ~>                       ~>
-    let x be e' in b         b'
+    e ~> e'
+    =================================== [ Let-E]
+    let x be e in b ~> let x be e' in b
+
+    replace x with v in b ~> b'
+    =========================== [ Let-B ]
+    let x be v in b ~> b'
 
 Again we use *real* operations to show how an expression is reduced using *real* operations.
 We denote the transition using a right squiggly arrow, and multiple reductions with `~>*`.

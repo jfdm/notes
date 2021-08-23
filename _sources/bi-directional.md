@@ -12,11 +12,11 @@ check : (context : List (String, Ty))
 where `Error` is a data-type to capture errors such as type-mismatch and variable not found.
 
 The problem is that the function `check` does not look and feel like what a type-checker should do!
-It doesn't check if `term` has a type, rather it constructs the type for `term`, if it can do so.
+It doesn't check if `term` has a particular type, rather it constructs the type for `term`, if it can do so.
 
 Here `check` is not a _checking_ function it's a type forming one!
 
-If we look at how types flow in our implementation of `check` from Coding Break 1: you will notice to types of flows:
+If we look at how types flow in our implementation of `check` from Coding Break 1: you will notice two types of flows:
 
 1. atomic terms present their types when asked; and
 2. other terms will do a mixture of:
@@ -38,15 +38,23 @@ We differ from standard notation and use `checks` and `synths` to denote what ha
 
 First, primitive values:
 
-    ================= [ Nat ]  ================== [ Bool ]
-    g |- n checks NAT          g |- b checks BOOL
+    ================= [ Nat ]
+    g |- n checks NAT
+
+    ================== [ Bool ]
+    g |- b checks BOOL
 
 then `And` and `Add`:
 
-    g |- x checks BOOL                  g |- x checks NAT
-    g |- y checks BOOL                  g |- y checks NAT
-    ========================== [ And ]  ========================== [ Add ]
-    g |- (And x y) checks BOOL          g |- (Add x y) checks BOOL
+    g |- x checks BOOL
+    g |- y checks BOOL
+    ========================== [ And ]
+    g |- (And x y) checks BOOL
+
+    g |- x checks NAT
+    g |- y checks NAT
+    ========================== [ Add ]
+    g |- (Add x y) checks BOOL
 
 then Variables:
 
