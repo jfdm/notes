@@ -1,9 +1,9 @@
 # Executing Programs Operationally
 
-Operational semantics describe how we evaluate our programs.
-This describes how we can *reduce*/evaluate our language expressions and statements to a single value.
-There are generally two common styles of operational semantics: Big-Step, and Small-Step.
+Operational semantics describe how we can *reduce*/evaluate our programs to values.
+Two common styles of operational semantics are : Big-Step, and Small-Step.
 There are more formal names given but we generally refer to the styles using these names.
+Of course, there are other semantics, denotational and axiomatic, but we do not discuss them here.
 
 So alongside our type-system will be a series of reduction rules that describe how terms can be reduced to a *value*.
 

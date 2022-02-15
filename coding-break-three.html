@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Break Three &#8212; Notes on Programming Language Theory</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bi-Directional Typing" href="bi-directional.html" />
+    <link rel="prev" title="Executing Programs Operationally" href="semantics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Notes on Programming Language Theory</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Notes on Programming Language Theory
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="syntax.html">
+   Syntax
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="types.html">
+   Types &amp; Type-Checking
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="coding-break-one.html">
+   Coding Break One
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="naming.html">
+   Naming things is Hard
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="coding-break-two.html">
+   Coding Break Two
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="renaming.html">
+   ReNaming things is Harder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="semantics.html">
+   Executing Programs Operationally
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Coding Break Three
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bi-directional.html">
+   Bi-Directional Typing
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/coding-break-three.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jfdm/notes/"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jfdm/notes//issues/new?title=Issue%20on%20page%20%2Fcoding-break-three.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#values">
+   Values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reductions">
+   Reductions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#progress">
+   Progress
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   Evaluation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#chaining-reductions">
+     Chaining reductions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#are-we-finished">
+     Are we finished?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-things">
+   Running Things
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <!-- idris
+import Data.List.Elem
+import Data.Fuel
+
+%default total
+
+infixr 6 +=
+
+(+=) : List a -> a -> List a
+(+=) xs x = x :: xs
+
+Contains : List a -> a -> Type
+Contains xs x = Elem x xs
+
+namespace Renaming
+  public export
+  weaken : (func : Contains old type
+                -> Contains new type)
+        -> (Contains (old += type') type
+         -> Contains (new += type') type)
+
+  weaken func Here = Here
+  weaken func (There rest) = There (func rest)
+
+  public export
+  interface Rename (type : Type) (term : List type -> type -> Type) | term where
+    rename : {old, new : List type}
+          -> (f : {ty : type} -> Contains old ty
+                              -> Contains new ty)
+          -> ({ty : type} -> term old ty
+                          -> term new ty)
+
+    var : {ty   : type}
+       -> {ctxt : List type}
+               -> Elem ty ctxt
+               -> term ctxt ty
+
+
+    weakens : {old, new : List type}
+           -> (f : {ty  : type}
+                       -> Contains old ty
+                       -> term     new ty)
+           -> ({ty,type' : type}
+                  -> Contains (old += type') ty
+                  -> term     (new += type') ty)
+    weakens f Here = var Here
+    weakens f (There rest) = rename There (f rest)
+
+namespace Substitution
+
+  namespace General
+    public export
+    interface Rename type term
+           => Substitute (type : Type) (term : List type -> type -> Type) | term where
+
+      subst : {old, new : List type}
+           -> (f : {ty  : type}
+                       -> Contains old ty
+                       -> term     new ty)
+           -> ({ty : type}
+                  -> term old ty
+                  -> term new ty)
+
+  namespace Single
+    public export
+    apply : {type : Type}
+         -> {term : List type -> type -> Type}
+         -> Rename type term
+         => {ctxt   : List type}
+         -> {typeA  : type}
+         -> {typeB  : type}
+         -> (this   : term      ctxt    typeB)
+         -> (idx    : Contains (ctxt += typeB) typeA)
+                   -> term      ctxt           typeA
+    apply this Here = this
+    apply this (There rest) = var rest
+
+    public export
+    subst : {type : Type}
+         -> {term : List type -> type -> Type}
+         -> Rename type term
+         => Substitute type term
+         => {ctxt          : List type}
+         -> {typeA         : type}
+         -> {typeB         : type}
+         -> (this          : term  ctxt           typeB)
+         -> (inThis        : term (ctxt += typeB) typeA)
+                          -> term  ctxt           typeA
+    subst {ctxt} {typeA} {typeB} this inThis
+      = subst (apply this) inThis
+
+-->
+<div class="section" id="coding-break-three">
+<h1>Coding Break Three<a class="headerlink" href="#coding-break-three" title="Permalink to this headline">¶</a></h1>
+<p>Recall our running example as coded in Idris:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">data</span> <span class="kt">Ty</span> <span class="ow">=</span> <span class="kt">BOOL</span> <span class="ow">|</span> <span class="kt">NAT</span>
+
+<span class="kr">data</span> <span class="kt">Term</span> <span class="ow">:</span> <span class="kt">List</span> <span class="kt">Ty</span> <span class="ow">-&gt;</span> <span class="kt">Ty</span> <span class="ow">-&gt;</span> <span class="kt">Type</span> <span class="kr">where</span>
+  <span class="nf">Var</span> <span class="ow">:</span> <span class="kt">Elem</span> type ctxt
+     <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt type
+
+  <span class="nf">B</span> <span class="ow">:</span> <span class="kt">Bool</span> <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt <span class="kt">BOOL</span>
+  <span class="nf">N</span> <span class="ow">:</span> <span class="kt">Nat</span>  <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt <span class="kt">NAT</span>
+
+  <span class="nf">Add</span> <span class="ow">:</span> <span class="ow">(</span>l,r <span class="ow">:</span> <span class="kt">Term</span> ctxt <span class="kt">NAT</span><span class="ow">)</span>
+            <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt <span class="kt">NAT</span>
+
+  <span class="nf">And</span> <span class="ow">:</span> <span class="ow">(</span>l,r <span class="ow">:</span> <span class="kt">Term</span> ctxt <span class="kt">BOOL</span><span class="ow">)</span>
+            <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt <span class="kt">BOOL</span>
+
+  <span class="nf">Let</span> <span class="ow">:</span> <span class="ow">{</span>typeT,typeB <span class="ow">:</span> <span class="kt">Ty</span><span class="ow">}</span>
+     <span class="ow">-&gt;</span> <span class="ow">(</span>this <span class="ow">:</span> <span class="kt">Term</span> ctxt typeT<span class="ow">)</span>
+     <span class="ow">-&gt;</span> <span class="ow">(</span>body <span class="ow">:</span> <span class="kt">Term</span> <span class="ow">(</span>typeT <span class="ow">::</span> ctxt<span class="ow">)</span> typeB<span class="ow">)</span>
+             <span class="ow">-&gt;</span> <span class="kt">Term</span> ctxt typeB
+</pre></div>
+</div>
+<p>which is renamed as:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kt">Rename</span> <span class="kt">Ty</span> <span class="kt">Term</span> <span class="kr">where</span>
+  var <span class="ow">=</span> <span class="kt">Var</span>
+
+  rename f <span class="ow">(</span><span class="kt">Var</span> x<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">Var</span> <span class="ow">(</span>f x<span class="ow">)</span>
+  rename f <span class="ow">(</span><span class="kt">B</span> x<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">B</span> x
+  rename f <span class="ow">(</span><span class="kt">N</span> k<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">N</span> k
+  rename f <span class="ow">(</span><span class="kt">Add</span> l r<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">Add</span> <span class="ow">(</span>rename f l<span class="ow">)</span> <span class="ow">(</span>rename f r<span class="ow">)</span>
+
+  rename f <span class="ow">(</span><span class="kt">And</span> l r<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">And</span> <span class="ow">(</span>rename f l<span class="ow">)</span> <span class="ow">(</span>rename f r<span class="ow">)</span>
+
+  rename f <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">Let</span> <span class="ow">(</span>rename f this<span class="ow">)</span> <span class="ow">(</span>rename <span class="ow">(</span>weaken f<span class="ow">)</span> body<span class="ow">)</span>
+</pre></div>
+</div>
+<p>with substitution defined as:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kt">Substitute</span> <span class="kt">Ty</span> <span class="kt">Term</span> <span class="kr">where</span>
+
+  subst f <span class="ow">(</span><span class="kt">Var</span> x<span class="ow">)</span>
+    <span class="ow">=</span> f x
+  subst f <span class="ow">(</span><span class="kt">B</span> x<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">B</span> x
+  subst f <span class="ow">(</span><span class="kt">N</span> k<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">N</span> k
+  subst f <span class="ow">(</span><span class="kt">Add</span> l r<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">Add</span> <span class="ow">(</span>subst f l<span class="ow">)</span> <span class="ow">(</span>subst f r<span class="ow">)</span>
+  subst f <span class="ow">(</span><span class="kt">And</span> l r<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">And</span> <span class="ow">(</span>subst f l<span class="ow">)</span> <span class="ow">(</span>subst f r<span class="ow">)</span>
+  subst f <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span>
+    <span class="ow">=</span> <span class="kt">Let</span> <span class="ow">(</span>subst f this<span class="ow">)</span> <span class="ow">(</span>subst <span class="ow">(</span>weakens f<span class="ow">)</span> body<span class="ow">)</span>
+</pre></div>
+</div>
+<div class="section" id="values">
+<h2>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">name</span>space <span class="kt">Value</span>
+</pre></div>
+</div>
+<p>We can define our terms values as:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="kr">data</span> <span class="kt">Value</span> <span class="ow">:</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> ctxt type<span class="ow">)</span> <span class="ow">-&gt;</span> <span class="kt">Type</span> <span class="kr">where</span>
+    <span class="nf">N</span> <span class="ow">:</span> <span class="kt">Value</span> <span class="ow">(</span><span class="kt">N</span> n<span class="ow">)</span>
+    <span class="nf">B</span> <span class="ow">:</span> <span class="kt">Value</span> <span class="ow">(</span><span class="kt">B</span> b<span class="ow">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reductions">
+<h2>Reductions<a class="headerlink" href="#reductions" title="Permalink to this headline">¶</a></h2>
+<p>The reductions are defined as:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">public</span> export
+<span class="kr">data</span> <span class="kt">Reduce</span> <span class="ow">:</span> <span class="ow">(</span>this, that <span class="ow">:</span> <span class="kt">Term</span> ctxt type<span class="ow">)</span>
+                         <span class="ow">-&gt;</span> <span class="kt">Type</span>
+  <span class="kr">where</span>
+    <span class="c1">-- Add</span>
+    <span class="nf">SimplifyAddL</span> <span class="ow">:</span> <span class="kt">Reduce</span> this that
+              <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">Add</span> this right<span class="ow">)</span> <span class="ow">(</span><span class="kt">Add</span> that right<span class="ow">)</span>
+
+    <span class="nf">SimplifyAddR</span> <span class="ow">:</span> <span class="kt">Value</span> left
+                <span class="ow">-&gt;</span> <span class="kt">Reduce</span> this that
+                <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">Add</span> left this<span class="ow">)</span> <span class="ow">(</span><span class="kt">Add</span> left that<span class="ow">)</span>
+
+    <span class="nf">ReduceAdd</span> <span class="ow">:</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">Add</span> <span class="ow">(</span><span class="kt">N</span> a<span class="ow">)</span> <span class="ow">(</span><span class="kt">N</span> b<span class="ow">))</span>
+                       <span class="ow">(</span><span class="kt">N</span> <span class="ow">(</span>a <span class="ow">+</span> b<span class="ow">))</span>
+
+    <span class="c1">-- And</span>
+    <span class="nf">SimplifyAndL</span> <span class="ow">:</span> <span class="kt">Reduce</span> this that
+              <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">And</span> this right<span class="ow">)</span> <span class="ow">(</span><span class="kt">And</span> that right<span class="ow">)</span>
+
+    <span class="nf">SimplifyAndR</span> <span class="ow">:</span> <span class="kt">Value</span> left
+                <span class="ow">-&gt;</span> <span class="kt">Reduce</span> this that
+                <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">And</span> left this<span class="ow">)</span> <span class="ow">(</span><span class="kt">And</span> left that<span class="ow">)</span>
+
+    <span class="nf">ReduceAnd</span> <span class="ow">:</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">And</span> <span class="ow">(</span><span class="kt">B</span> a<span class="ow">)</span> <span class="ow">(</span><span class="kt">B</span> b<span class="ow">))</span>
+                       <span class="ow">(</span><span class="kt">B</span> <span class="ow">(</span>a <span class="ow">&amp;&amp;</span> b<span class="ow">))</span>
+
+    <span class="c1">-- Binders</span>
+    <span class="nf">SimplifyLet</span> <span class="ow">:</span> <span class="kt">Reduce</span> this that
+               <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span>
+                         <span class="ow">(</span><span class="kt">Let</span> that body<span class="ow">)</span>
+
+    <span class="nf">ReduceLet</span> <span class="ow">:</span> <span class="kt">Value</span> this
+             <span class="ow">-&gt;</span> <span class="kt">Reduce</span> <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span>
+                       <span class="ow">(</span><span class="kt">Single</span><span class="ow">.</span>subst this body<span class="ow">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="progress">
+<h2>Progress<a class="headerlink" href="#progress" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">name</span>space <span class="kt">Progress</span>
+</pre></div>
+</div>
+<p>These reduction rules describe a single reduction, we still need to show what happens when a reduction is applied.
+We do so with <code class="docutils literal notranslate"><span class="pre">Progress</span></code> that captures the result of applying a single reduction step applied to a term.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="kr">data</span> <span class="kt">Progress</span> <span class="ow">:</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">)</span>
+                       <span class="ow">-&gt;</span> <span class="kt">Type</span>
+    <span class="kr">where</span>
+</pre></div>
+</div>
+<p>Progress (i.e. reduction) will stop if a value is returned.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">Stop</span> <span class="ow">:</span> <span class="ow">(</span>value <span class="ow">:</span> <span class="kt">Value</span> <span class="kr">term</span><span class="ow">)</span>
+                   <span class="ow">-&gt;</span> <span class="kt">Progress</span> <span class="kr">term</span>
+</pre></div>
+</div>
+<p>Otherwise progress has been made through application of a reduction rule.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">Step</span> <span class="ow">:</span> <span class="ow">{</span>this,that <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">}</span>
+          <span class="ow">-&gt;</span> <span class="ow">(</span>step <span class="ow">:</span> <span class="kt">Reduce</span> this that<span class="ow">)</span>
+                  <span class="ow">-&gt;</span> <span class="kt">Progress</span> this
+</pre></div>
+</div>
+<p>with this definition of progress, we can ‘prove’ that each reduction step is used as follows:
+We do so, however, on closed terms.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  export
+  <span class="nf">progress</span> <span class="ow">:</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">)</span>
+                  <span class="ow">-&gt;</span> <span class="kt">Progress</span> <span class="kr">term</span>
+</pre></div>
+</div>
+<p>In a closed term, variables do not exist.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  progress <span class="ow">(</span><span class="kt">Var</span> <span class="kr">_</span><span class="ow">)</span> <span class="kr">impossible</span>
+</pre></div>
+</div>
+<p>When values are found we stop.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  progress <span class="ow">(</span><span class="kt">B</span> x<span class="ow">)</span> <span class="ow">=</span> <span class="kt">Stop</span> <span class="kt">B</span>
+  progress <span class="ow">(</span><span class="kt">N</span> k<span class="ow">)</span> <span class="ow">=</span> <span class="kt">Stop</span> <span class="kt">N</span>
+</pre></div>
+</div>
+<p>Otherwise we need to evaluate each operand to a value, and then reduce the conjunction or addition.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  progress <span class="ow">(</span><span class="kt">Add</span> l r<span class="ow">)</span> <span class="kr">with</span> <span class="ow">(</span>progress l<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">Add</span> <span class="ow">(</span><span class="kt">N</span> n<span class="ow">)</span> r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">N</span><span class="ow">)</span> <span class="kr">with</span> <span class="ow">(</span>progress r<span class="ow">)</span>
+      progress <span class="ow">(</span><span class="kt">Add</span> <span class="ow">(</span><span class="kt">N</span> n<span class="ow">)</span> <span class="ow">(</span><span class="kt">N</span> m<span class="ow">))</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">N</span><span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">N</span><span class="ow">)</span>
+        <span class="ow">=</span> <span class="kt">Step</span> <span class="kt">ReduceAdd</span>
+      progress <span class="ow">(</span><span class="kt">Add</span> <span class="ow">(</span><span class="kt">N</span> n<span class="ow">)</span> r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">N</span><span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step<span class="ow">)</span>
+        <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">SimplifyAddR</span> <span class="kt">N</span> step<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">Add</span> l r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step<span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">SimplifyAddL</span> step<span class="ow">)</span>
+
+  progress <span class="ow">(</span><span class="kt">And</span> l r<span class="ow">)</span> <span class="kr">with</span> <span class="ow">(</span>progress l<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">And</span> <span class="ow">(</span><span class="kt">B</span> n<span class="ow">)</span> r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">B</span><span class="ow">)</span> <span class="kr">with</span> <span class="ow">(</span>progress r<span class="ow">)</span>
+      progress <span class="ow">(</span><span class="kt">And</span> <span class="ow">(</span><span class="kt">B</span> n<span class="ow">)</span> <span class="ow">(</span><span class="kt">B</span> m<span class="ow">))</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">B</span><span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">B</span><span class="ow">)</span>
+        <span class="ow">=</span> <span class="kt">Step</span> <span class="kt">ReduceAnd</span>
+      progress <span class="ow">(</span><span class="kt">And</span> <span class="ow">(</span><span class="kt">B</span> n<span class="ow">)</span> r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> <span class="kt">B</span><span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step<span class="ow">)</span>
+        <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">SimplifyAndR</span> <span class="kt">B</span> step<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">And</span> l r<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step<span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">SimplifyAndL</span> step<span class="ow">)</span>
+</pre></div>
+</div>
+<p>Finally, as we are operating on bound terms these bound terms need to reduce…</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  progress <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span> <span class="kr">with</span> <span class="ow">(</span>progress this<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> value<span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">ReduceLet</span> value<span class="ow">)</span>
+    progress <span class="ow">(</span><span class="kt">Let</span> this body<span class="ow">)</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step<span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Step</span> <span class="ow">(</span><span class="kt">SimplifyLet</span> step<span class="ow">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">name</span>space <span class="kt">Evaluation</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Progress</span></code> talks about reduction of a single term.
+We still need to describe how we chain these reduction steps together i.e. <code class="docutils literal notranslate"><span class="pre">~&gt;*</span></code>.</p>
+<div class="section" id="chaining-reductions">
+<h3>Chaining reductions<a class="headerlink" href="#chaining-reductions" title="Permalink to this headline">¶</a></h3>
+<p>We do so using <code class="docutils literal notranslate"><span class="pre">Reduces</span></code>:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="kr">data</span> <span class="kt">Reduces</span> <span class="ow">:</span> <span class="ow">(</span>this,that <span class="ow">:</span> <span class="kt">Term</span> ctxt type<span class="ow">)</span>
+                           <span class="ow">-&gt;</span> <span class="kt">Type</span>
+    <span class="kr">where</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Refl</span></code> captures that progress has stopped, the term can no longer be reduced.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">Refl</span> <span class="ow">:</span> <span class="kt">Reduces</span> this this
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Trans</span></code> captures the sequencing of reductions (<code class="docutils literal notranslate"><span class="pre">~&gt;*</span></code>).</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">Trans</span> <span class="ow">:</span> <span class="kt">Reduce</span>  this that
+           <span class="ow">-&gt;</span> <span class="kt">Reduces</span>      that end
+           <span class="ow">-&gt;</span> <span class="kt">Reduces</span> this      end
+</pre></div>
+</div>
+</div>
+<div class="section" id="are-we-finished">
+<h3>Are we finished?<a class="headerlink" href="#are-we-finished" title="Permalink to this headline">¶</a></h3>
+<p>We need to combine <code class="docutils literal notranslate"><span class="pre">Reduces</span></code> with another structure called <code class="docutils literal notranslate"><span class="pre">Finished</span></code> that captures the idea that computations will either reach a value, or carry on becomes stuck.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="kr">data</span> <span class="kt">Finished</span> <span class="ow">:</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> ctxt type<span class="ow">)</span>
+                       <span class="ow">-&gt;</span> <span class="kt">Type</span>
+    <span class="kr">where</span>
+</pre></div>
+</div>
+<p>Reductions stop when either a value is found,</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">IsValue</span> <span class="ow">:</span> <span class="kt">Value</span> <span class="kr">term</span>
+             <span class="ow">-&gt;</span> <span class="kt">Finished</span> <span class="kr">term</span>
+</pre></div>
+</div>
+<p>or there is not enough fuel to carry on:</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      <span class="nf">NoFuel</span> <span class="ow">:</span> <span class="kt">Finished</span> <span class="kr">term</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Evaluation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Evaluation</span></code> captures the idea that computations can potentially carry on forever until a result is found.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="kr">data</span> <span class="kt">Evaluation</span> <span class="ow">:</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">)</span>
+                         <span class="ow">-&gt;</span> <span class="kt">Type</span>
+    <span class="kr">where</span>
+      <span class="nf">Eval</span> <span class="ow">:</span> <span class="ow">{</span>this, that <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">}</span>
+          <span class="ow">-&gt;</span> <span class="ow">(</span>steps  <span class="ow">:</span> <span class="kt">Inf</span> <span class="ow">(</span><span class="kt">Reduces</span> this that<span class="ow">))</span>
+          <span class="ow">-&gt;</span> <span class="ow">(</span>result <span class="ow">:</span> <span class="kt">Finished</span> that<span class="ow">)</span>
+                    <span class="ow">-&gt;</span> <span class="kt">Evaluation</span> this
+</pre></div>
+</div>
+<p>To realise this, we need to have a source of <code class="docutils literal notranslate"><span class="pre">Fuel</span></code>.
+Predefined in the Idris <code class="docutils literal notranslate"><span class="pre">contrib</span></code>, <code class="docutils literal notranslate"><span class="pre">Fuel</span></code> is an infinite source of computation we can used to reason about potentially infinite processes.
+The Idris book describes this in a bit more detail.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  <span class="kr">public</span> export
+  <span class="nf">evaluate</span> <span class="ow">:</span> <span class="ow">(</span>fuel <span class="ow">:</span> <span class="kt">Fuel</span><span class="ow">)</span>
+          <span class="ow">-&gt;</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">)</span>
+                  <span class="ow">-&gt;</span> <span class="kt">Evaluation</span> <span class="kr">term</span>
+</pre></div>
+</div>
+<p>Evaluation stops when there is no more fuel.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  evaluate <span class="kt">Dry</span> <span class="kr">term</span> <span class="ow">=</span> <span class="kt">Eval</span> <span class="kt">Refl</span> <span class="kt">NoFuel</span>
+</pre></div>
+</div>
+<p>But doesn’t if there is fuel, and progress can be made.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  evaluate <span class="ow">(</span><span class="kt">More</span> fuel<span class="ow">)</span> <span class="kr">term</span> <span class="kr">with</span> <span class="ow">(</span>progress <span class="kr">term</span><span class="ow">)</span>
+</pre></div>
+</div>
+<p>If we have reached a value, then stop.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>    evaluate <span class="ow">(</span><span class="kt">More</span> fuel<span class="ow">)</span> <span class="kr">term</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Stop</span> value<span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Eval</span> <span class="kt">Refl</span> <span class="ow">(</span><span class="kt">IsValue</span> value<span class="ow">)</span>
+</pre></div>
+</div>
+<p>otherwise try and evaluate further.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>    evaluate <span class="ow">(</span><span class="kt">More</span> fuel<span class="ow">)</span> <span class="kr">term</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step <span class="ow">{</span>that<span class="ow">})</span> <span class="kr">with</span> <span class="ow">(</span>evaluate fuel that<span class="ow">)</span>
+</pre></div>
+</div>
+<p>and chain the reductions together.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>      evaluate <span class="ow">(</span><span class="kt">More</span> fuel<span class="ow">)</span> <span class="kr">term</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Step</span> step <span class="ow">{</span>that <span class="ow">=</span> that<span class="ow">})</span> <span class="ow">|</span> <span class="ow">(</span><span class="kt">Eval</span> steps result<span class="ow">)</span>
+        <span class="ow">=</span> <span class="kt">Eval</span> <span class="ow">(</span><span class="kt">Trans</span> step steps<span class="ow">)</span> result
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-things">
+<h2>Running Things<a class="headerlink" href="#running-things" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span><span class="kr">name</span>space <span class="kt">Run</span>
+</pre></div>
+</div>
+<p>With evaluation covered, we can bring it all together to describe how we run our programs.</p>
+<p>That is, how we take a closed term, and reduce it to a value.
+The function <code class="docutils literal notranslate"><span class="pre">run</span></code> will either return the value, or nothing if it runs out of fuel.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  export covering
+  <span class="nf">run</span> <span class="ow">:</span> <span class="ow">{</span>type <span class="ow">:</span> <span class="kt">Ty</span><span class="ow">}</span>
+     <span class="ow">-&gt;</span> <span class="ow">(</span>this <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type<span class="ow">)</span>
+             <span class="ow">-&gt;</span> <span class="kt">Maybe</span> <span class="ow">(</span>that <span class="ow">:</span> <span class="kt">Term</span> <span class="kt">Nil</span> type <span class="ow">**</span> <span class="kt">Reduces</span> this that<span class="ow">)</span>
+</pre></div>
+</div>
+<p>Using the infinite source of fuel, run the computaton.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>  run this <span class="kr">with</span> <span class="ow">(</span>evaluate forever this<span class="ow">)</span>
+</pre></div>
+</div>
+<p>We found a value, now return it with the steps used to get it.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>    run this <span class="ow">|</span> <span class="ow">(</span><span class="kt">Eval</span> steps <span class="ow">(</span><span class="kt">IsValue</span> <span class="ow">{</span><span class="kr">term</span><span class="ow">}</span> x<span class="ow">))</span>
+      <span class="ow">=</span> <span class="kt">Just</span> <span class="ow">(</span><span class="kr">term</span> <span class="ow">**</span> steps<span class="ow">)</span>
+</pre></div>
+</div>
+<p>If there is no fuel, then no result.</p>
+<div class="highlight-idris notranslate"><div class="highlight"><pre><span></span>    run this <span class="ow">|</span> <span class="ow">(</span><span class="kt">Eval</span> steps <span class="kt">NoFuel</span><span class="ow">)</span>
+      <span class="ow">=</span> <span class="kt">Nothing</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="semantics.html" title="previous page">Executing Programs Operationally</a>
+    <a class='right-next' id="next-link" href="bi-directional.html" title="next page">Bi-Directional Typing</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Jan de Muijnck-Hughes<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
